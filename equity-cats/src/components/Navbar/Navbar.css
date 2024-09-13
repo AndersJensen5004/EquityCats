@@ -1,0 +1,20 @@
+.navbar {
+    z-index: 1000;
+    height: 1.5rem;
+    font-size: 1.1rem;
+    color: #f8f8f8;
+    text-align: right;
+    background-color: #8f1808;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 0.5rem;
+}
+
+.navbar p {
+    margin: 0;
+}
