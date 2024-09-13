@@ -1,0 +1,2 @@
+# EquityCats
+Finance Terminal
