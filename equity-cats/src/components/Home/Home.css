@@ -33,9 +33,9 @@
     outline: none;
     font-weight: bold;
     text-transform: uppercase;
-    caret-color: transparent; /* Hide the default cursor */
+    caret-color: transparent; 
     position: relative;
-    z-index: 1; /* Ensure input is above the block cursor */
+    z-index: 1; 
 }
 
 .terminal-input:focus {
@@ -98,4 +98,31 @@
 @keyframes blink {
     0%, 100% { opacity: 1; }
     50% { opacity: 0; }
+}
+
+.command-output {
+    padding: 1rem;
+    background-color: #111;
+    border-top: 1px solid #333;
+    overflow-y: auto;
+    max-height: 50vh;
+}
+
+.help-container {
+    color: #f8f8f8;
+    font-family: 'Source Code Pro', monospace;
+}
+
+.help-container h2 {
+    color: #FF8C00;
+    margin-bottom: 1rem;
+}
+
+.help-container ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.help-container li {
+    margin-bottom: 0.5rem;
 }

@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Home.css';
+import Help from '../Help/Help.js';
 
 const Home = () => {
     const [input, setInput] = useState('');
     const [output, setOutput] = useState([<div key={0}>Welcome to EquityCats Terminal</div>]);
+    const [commandOutput, setCommandOutput] = useState(null);
     const outputRef = useRef(null);
     const inputRef = useRef(null);
 
@@ -31,7 +33,22 @@ const Home = () => {
                 </div>
             );
             setOutput([...output, newOutput]);
+            processCommand(input.trim().toUpperCase());
             setInput('');
+        }
+    };
+
+    const processCommand = (command) => {
+        switch (command) {
+            case 'HELP':
+                setCommandOutput(<Help />);
+                break;
+            case 'CLEAR':
+                setOutput([]);
+                setCommandOutput(null);
+                break;
+            default:
+                setCommandOutput(<div>Unknown command. Type HELP for a list of commands.</div>);
         }
     };
 
@@ -54,6 +71,7 @@ const Home = () => {
             <div className="output" ref={outputRef}>
                 {output}
             </div>
+            {commandOutput && <div className="command-output">{commandOutput}</div>}
         </div>
     );
 }
