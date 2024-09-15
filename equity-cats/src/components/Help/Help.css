@@ -1,0 +1,21 @@
+.help-container {
+    color: #f8f8f8;
+    font-family: 'Source Code Pro', monospace;
+    padding: 1rem;
+    height: calc(100vh - 50px); 
+    overflow-y: auto;
+}
+
+.help-container h2 {
+    color: #FF8C00;
+    margin-bottom: 1rem;
+}
+
+.help-container ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.help-container li {
+    margin-bottom: 0.5rem;
+}

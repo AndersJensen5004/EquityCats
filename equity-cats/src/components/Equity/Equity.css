@@ -1,0 +1,27 @@
+.equity-container {
+    font-family: 'Source Code Pro', monospace;
+    color: #f8f8f8;
+    padding: 20px;
+  }
+  
+  .equity-container h2 {
+    color: #FF8C00;
+    margin-bottom: 20px;
+  }
+  
+  .stock-info p {
+    margin: 10px 0;
+  }
+  
+  .positive {
+    color: #00ff00;
+  }
+  
+  .negative {
+    color: #ff0000;
+  }
+  
+  .loading, .error {
+    font-size: 18px;
+    color: #FF8C00;
+  }

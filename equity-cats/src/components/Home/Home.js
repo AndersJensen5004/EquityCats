@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Home.css';
 import Help from '../Help/Help.js';
+import Equity from '../Equity/Equity.js';
 
 const Home = () => {
     const [input, setInput] = useState('');
-    const [output, setOutput] = useState([<div key={0}>Welcome to EquityCats Terminal</div>]);
-    const [commandOutput, setCommandOutput] = useState(null);
-    const outputRef = useRef(null);
+    const [currentComponent, setCurrentComponent] = useState(null);
     const inputRef = useRef(null);
 
     useEffect(() => {
@@ -15,63 +14,59 @@ const Home = () => {
         }
     }, []);
 
-    useEffect(() => {
-        if (outputRef.current) {
-            outputRef.current.scrollTop = outputRef.current.scrollHeight;
-        }
-    }, [output]);
-
     const handleInputChange = (e) => {
         setInput(e.target.value);
     };
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
-            const newOutput = (
-                <div key={output.length}>
-                    <span>&gt; {input}</span>
-                </div>
-            );
-            setOutput([...output, newOutput]);
             processCommand(input.trim().toUpperCase());
             setInput('');
         }
     };
 
     const processCommand = (command) => {
-        switch (command) {
+        const [action, param] = command.split(' ');
+        switch (action) {
             case 'HELP':
-                setCommandOutput(<Help />);
+                setCurrentComponent(<Help />);
                 break;
             case 'CLEAR':
-                setOutput([]);
-                setCommandOutput(null);
+                setCurrentComponent(null);
+                break;
+            case 'EQUITY':
+                if (param) {
+                    setCurrentComponent(<Equity symbol={param} />);
+                } else {
+                    setCurrentComponent(<div className="unknown-command">Please provide a stock symbol. Example: EQUITY AAPL</div>);
+                }
                 break;
             default:
-                setCommandOutput(<div>Unknown command. Type HELP for a list of commands.</div>);
+                setCurrentComponent(<div className="unknown-command">Unknown command. Type HELP for a list of commands.</div>);
         }
     };
 
     return (
         <div className="home">
-            <div className="terminal-input-line">
-                <span className="prompt">▶</span>
-                <div className="input-container">
-                    <input
-                        ref={inputRef}
-                        type="text"
-                        value={input}
-                        onChange={handleInputChange}
-                        onKeyPress={handleKeyPress}
-                        className="terminal-input"
-                    />
-                    <div className="block-cursor" style={{ left: `${input.length * 0.6}em` }}>▮</div>
+            <div className="terminal-header">
+                <div className="terminal-input-line">
+                    <span className="prompt">▶</span>
+                    <div className="input-container">
+                        <input
+                            ref={inputRef}
+                            type="text"
+                            value={input}
+                            onChange={handleInputChange}
+                            onKeyPress={handleKeyPress}
+                            className="terminal-input"
+                        />
+                        <div className="block-cursor" style={{ left: `${input.length * 0.6}em` }}>▮</div>
+                    </div>
                 </div>
             </div>
-            <div className="output" ref={outputRef}>
-                {output}
+            <div className="component-container">
+                {currentComponent}
             </div>
-            {commandOutput && <div className="command-output">{commandOutput}</div>}
         </div>
     );
 }
