@@ -6,6 +6,7 @@ import Equity from '../Equity/Equity.js';
 const Home = () => {
     const [input, setInput] = useState('');
     const [currentComponent, setCurrentComponent] = useState(null);
+    const [stockSymbol, setStockSymbol] = useState(null);
     const inputRef = useRef(null);
 
     useEffect(() => {
@@ -30,19 +31,24 @@ const Home = () => {
         switch (action) {
             case 'HELP':
                 setCurrentComponent(<Help />);
+                setStockSymbol(null);
                 break;
             case 'CLEAR':
                 setCurrentComponent(null);
+                setStockSymbol(null);
                 break;
             case 'EQUITY':
                 if (param) {
-                    setCurrentComponent(<Equity symbol={param} />);
+                    setStockSymbol(param);
+                    setCurrentComponent('EQUITY');
                 } else {
                     setCurrentComponent(<div className="unknown-command">Please provide a stock symbol. Example: EQUITY AAPL</div>);
+                    setStockSymbol(null);
                 }
                 break;
             default:
                 setCurrentComponent(<div className="unknown-command">Unknown command. Type HELP for a list of commands.</div>);
+                setStockSymbol(null);
         }
     };
 
@@ -65,7 +71,11 @@ const Home = () => {
                 </div>
             </div>
             <div className="component-container">
-                {currentComponent}
+                {currentComponent === 'EQUITY' && stockSymbol ? (
+                    <Equity key={stockSymbol} symbol={stockSymbol} />
+                ) : (
+                    currentComponent
+                )}
             </div>
         </div>
     );
