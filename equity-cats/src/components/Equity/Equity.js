@@ -1,10 +1,13 @@
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 import useFetch from '../../Hooks/useFetch.js';
+import FinancialChart from '../CandlestickChart/CandlestickChart.js';
 import './Equity.css';
 
 const Equity = ({ symbol }) => {
   const { data: stockData, loading, error } = useFetch(`/api/stock/${symbol}`);
+
+  const formatNumber = (num) => num?.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") ?? 'N/A';
+  const formatVolume = (vol) => vol?.toLocaleString() ?? 'N/A';
 
   if (loading) return <div className="loading">Loading...</div>;
   if (error) return <div className="error">{error}</div>;
@@ -16,27 +19,27 @@ const Equity = ({ symbol }) => {
 
   if (!quote || !indicators || !timestamps) return <div className="error">Invalid data format for {symbol}</div>;
 
-  const formatNumber = (num) => num?.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",") ?? 'N/A';
-  const formatVolume = (vol) => vol?.toLocaleString() ?? 'N/A';
-  const formatDate = (timestamp) => new Date(timestamp * 1000).toLocaleTimeString();
-
   const chartData = timestamps.map((time, index) => ({
-    time: formatDate(time),
-    price: indicators.close[index],
-  })).filter(item => item.price !== null);
+    date: new Date(time * 1000).toLocaleDateString(),
+    open: indicators.open[index],
+    high: indicators.high[index],
+    low: indicators.low[index],
+    close: indicators.close[index],
+    volume: indicators.volume[index],
+  })).filter(item => item.open != null && item.high != null && item.low != null && item.close != null);
 
   return (
-    <div className="equity-container financial-terminal">
+    <div className="equity-container">
       <div className="header">
         <h2>{quote.longName} ({symbol})</h2>
         <p>{quote.fullExchangeName} - {quote.currency}</p>
       </div>
       <div className="grid-container">
-        <div className="grid-item">
+        <div className="grid-item price">
           <h3>Price</h3>
           <p className="large-number">{formatNumber(quote.regularMarketPrice)}</p>
         </div>
-        <div className="grid-item">
+        <div className="grid-item change">
           <h3>Change</h3>
           <p className={`large-number ${quote.regularMarketChange >= 0 ? 'positive' : 'negative'}`}>
             {formatNumber(quote.regularMarketChange)} ({formatNumber(quote.regularMarketChangePercent)}%)
@@ -85,14 +88,7 @@ const Equity = ({ symbol }) => {
       </div>
       <div className="chart-container">
         <h3>Price Chart</h3>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={chartData}>
-            <XAxis dataKey="time" />
-            <YAxis domain={['auto', 'auto']} />
-            <Tooltip />
-            <Line type="monotone" dataKey="price" stroke="#8884d8" dot={false} />
-          </LineChart>
-        </ResponsiveContainer>
+        <FinancialChart data={chartData} width={800} height={400} />
       </div>
     </div>
   );

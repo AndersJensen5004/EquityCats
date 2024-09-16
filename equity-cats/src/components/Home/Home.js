@@ -2,10 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import './Home.css';
 import Help from '../Help/Help.js';
 import Equity from '../Equity/Equity.js';
+import Welcome from '../Welcome/Welcome.js';
 
 const Home = () => {
     const [input, setInput] = useState('');
-    const [currentComponent, setCurrentComponent] = useState(null);
+    const [currentComponent, setCurrentComponent] = useState('WELCOME');
     const [stockSymbol, setStockSymbol] = useState(null);
     const inputRef = useRef(null);
 
@@ -42,12 +43,12 @@ const Home = () => {
                     setStockSymbol(param);
                     setCurrentComponent('EQUITY');
                 } else {
-                    setCurrentComponent(<div className="unknown-command">Please provide a stock symbol. Example: EQUITY AAPL</div>);
+                    setCurrentComponent(<div className="unknown-command">Please provide a stock symbol. Example: EQUITY AAPL &lt;GO&gt; </div>);
                     setStockSymbol(null);
                 }
                 break;
             default:
-                setCurrentComponent(<div className="unknown-command">Unknown command. Type HELP for a list of commands.</div>);
+                setCurrentComponent(<div className="unknown-command">Unknown command. Type HELP &lt;GO&gt; for a list of commands.</div>);
                 setStockSymbol(null);
         }
     };
@@ -76,6 +77,9 @@ const Home = () => {
                 ) : (
                     currentComponent
                 )}
+            </div>
+            <div className="component-container">
+                {currentComponent === 'WELCOME' && <Welcome />}
             </div>
         </div>
     );

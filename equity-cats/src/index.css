@@ -20,3 +20,13 @@ code {
     monospace;
 }
 
+:root {
+  --bg-color: #121212;
+  --card-bg-color: #1e1e1e;
+  --text-color: #e0e0e0;
+  --header-color: #4CAF50;
+  --accent-color: #3f51b5;
+  --positive-color: #4CAF50;
+  --negative-color: #F44336;
+}
+
