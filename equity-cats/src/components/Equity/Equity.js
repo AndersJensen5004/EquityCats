@@ -1,7 +1,7 @@
 import React from 'react';
 import useFetch from '../../Hooks/useFetch.js';
-import FinancialChart from '../CandlestickChart/CandlestickChart.js';
 import './Equity.css';
+import CandlestickChart from '../CandlestickChart/CandlestickChart.js';
 
 const Equity = ({ symbol }) => {
   const { data: stockData, loading, error } = useFetch(`/api/stock/${symbol}`);
@@ -88,7 +88,7 @@ const Equity = ({ symbol }) => {
       </div>
       <div className="chart-container">
         <h3>Price Chart</h3>
-        <FinancialChart data={chartData} width={800} height={400} />
+        <CandlestickChart data={chartData} width={'100%'} height={400}/>
       </div>
     </div>
   );

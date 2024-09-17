@@ -1,0 +1,26 @@
+.welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh; 
+    text-align: center;
+}
+
+.welcome h1 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+}
+
+.welcome p {
+    margin-bottom: 1.5rem;
+    font-size: 1.25rem;
+}
+
+.welcome img {
+    width: 14rem; 
+    height: auto;
+    margin-top: 1rem;
+    border: 0.2rem solid #000; 
+    border-radius: 0.6rem; 
+}

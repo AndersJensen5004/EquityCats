@@ -6,7 +6,7 @@ import Welcome from '../Welcome/Welcome.js';
 
 const Home = () => {
     const [input, setInput] = useState('');
-    const [currentComponent, setCurrentComponent] = useState('WELCOME');
+    const [currentComponent, setCurrentComponent] = useState(<Welcome />);
     const [stockSymbol, setStockSymbol] = useState(null);
     const inputRef = useRef(null);
 
@@ -77,9 +77,6 @@ const Home = () => {
                 ) : (
                     currentComponent
                 )}
-            </div>
-            <div className="component-container">
-                {currentComponent === 'WELCOME' && <Welcome />}
             </div>
         </div>
     );

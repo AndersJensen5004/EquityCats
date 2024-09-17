@@ -1,10 +1,12 @@
 import './Welcome.css';
+import logo512 from '../../assets/logo512.png';
 
 const Welcome = () => {
     return (
-        <div>
+        <div className="welcome">
             <h1>Welcome to EquityCats</h1>
-            <p>Type HELP &lt;GO&gt; for a list of available commands</p>
+            <p>Type <strong>HELP &lt;GO&gt;</strong> for a list of available commands</p>
+            <img src={logo512} alt="EquityCats Logo" />
         </div>
     );
 }
