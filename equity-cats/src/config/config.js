@@ -7,7 +7,7 @@ const config = {
     useCache: false,
     cacheTime: 60000, 
   },
-  production: {
+  prod: {
     apiBaseUrl: 'https://equitycats.onrender.com/', 
     useCache: false,
     cacheTime: 300000, 
