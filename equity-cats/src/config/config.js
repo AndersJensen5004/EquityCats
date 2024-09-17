@@ -8,7 +8,7 @@ const config = {
     cacheTime: 60000, 
   },
   prod: {
-    apiBaseUrl: 'https://equitycats.onrender.com/', 
+    apiBaseUrl: 'https://equitycats.onrender.com', 
     useCache: false,
     cacheTime: 300000, 
   },
