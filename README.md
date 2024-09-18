@@ -1,7 +1,7 @@
 # EquityCats
 Finance Terminal
 
-To run the frontend server:
+**To run the frontend server:**
 
 cd equity-cats
 
@@ -12,7 +12,7 @@ OR
 npm run build
 
 
-To run the backend server:
+**To run the backend server:**
 
 cd backend
 
